@@ -11,7 +11,7 @@ async def get_all_travel_routes():
 
 @router.get("/router")
 async def get_one_router(
-    flight_number: Annotated[int, Query(..., title="Flight number", example=104)]
+    travel_number: Annotated[int, Query(..., title="Flight number", example=104)]
 ):
     pass
 
