@@ -1,6 +1,6 @@
-from sqlalchemy import BigInteger, Text, VARCHAR, ForeignKey, Integer, Time, ARRAY, DateTime
+from sqlalchemy import BigInteger, VARCHAR, ForeignKey, Integer, Time, ARRAY, DateTime, String
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 import datetime, time
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
@@ -34,7 +34,7 @@ class Routes(Base):
     __tablename__ = 'routes'
 
     route: Mapped[str] = mapped_column(VARCHAR, primary_key=True)
-    points: Mapped[list] = mapped_column(ARRAY)
+    points: Mapped[list[str]] = mapped_column(ARRAY(String))
     minimal_price: Mapped[int] = mapped_column(Integer)
     cost_one_point: Mapped[int] = mapped_column(Integer)
     start_time: Mapped[time] = mapped_column(Time)

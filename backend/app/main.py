@@ -6,6 +6,7 @@ from api.v1.chages_routes import router as changes_routes
 from api.v1.comments_routes import router as comments_routes
 from api.v1.tickets_routes import router as ticket_routes
 from api.v1.travel_routes import router as travel_routes
+from api.v1.users_routes import router as users_routes
 from databases.postgresdb import create_tables
 
 
@@ -16,6 +17,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI()
 
+app.include_router(users_routes)
 app.include_router(changes_routes)
 app.include_router(comments_routes)
 app.include_router(ticket_routes)

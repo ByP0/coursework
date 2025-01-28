@@ -5,7 +5,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 from datetime import datetime, timedelta, timezone
 
-from app.config import secret_key, algorithm
+from config import secret_key, algorithm
 
 class JWTBearer(HTTPBearer):
     def __init__(self, auto_error: bool = True):
@@ -74,3 +74,9 @@ def validate_phone(phone):
             if i.isdigit():
                 valid_phone += i
         return valid_phone
+    
+def get_user_id_from_token(request: Request):
+    headers = request.headers
+    token_list = headers.get("authorization").split()
+    token_dict = decode_jwt(token_list[1])
+    return token_dict.get('user_id')

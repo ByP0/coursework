@@ -1,8 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, Result
-from app.models.models import Users
-from app.schemas.users_schemas import SingUpUser, UserResponse
-from app.services.users_services import hash_password
+from models.models import Users
+from schemas.users_schemas import SingUpUser, UserResponse
+from services.users_services import hash_password
 
 
 async def get_user(session: AsyncSession):

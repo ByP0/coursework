@@ -1,8 +1,7 @@
-from typing import Annotated
-from fastapi import APIRouter, Query
+from fastapi import APIRouter
 
 
-router = APIRouter(prefix="/tickets")
+router = APIRouter(prefix="/tickets", tags=["Tickets"])
 
 
 @router.post("/buy")

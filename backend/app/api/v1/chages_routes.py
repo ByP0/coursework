@@ -2,7 +2,7 @@ from typing import Annotated
 from fastapi import APIRouter, Query
 
 
-router = APIRouter(prefix="/admin")
+router = APIRouter(prefix="/admin", tags=["Admin"])
 
 
 @router.get("/all")

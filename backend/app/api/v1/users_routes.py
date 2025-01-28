@@ -2,14 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.schemas.users_schemas import SingUpUser, SingInUser
-from app.databases.postgresdb import get_session
-from app.cruds import users_crud
-from app.services.users_services import validate_password, sign_jwt, dependencies, get_user_id_from_token
+from schemas.users_schemas import SingUpUser, SingInUser
+from databases.postgresdb import get_session
+from cruds import users_crud
+from services.users_services import validate_password, sign_jwt, dependencies, get_user_id_from_token
 
 
-
-router = APIRouter(prefix="/users")
+router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @router.post("/sing_up")
@@ -27,7 +26,7 @@ async def sing_up(
     raise HTTPException(status_code=500, detail="Ошибка при регистрации")
 
 
-@router.post_("/sing_in")
+@router.post("/sing_in")
 async def sing_in(
     data: SingInUser,
     session: AsyncSession = Depends(get_session),

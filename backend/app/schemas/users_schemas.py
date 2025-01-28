@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field, model_validator
 from typing import Annotated, Optional
 from email_validator import validate_email
 
-from app.services.users_services import validate_phone
+from services.users_services import validate_phone
 
 
 class SingUpUser(BaseModel):
@@ -53,3 +53,10 @@ class SingInUser(BaseModel):
                 raise ValueError("Invalid email.")
 
         return values
+    
+class UserResponse(BaseModel):
+    user_id: int
+    email: str
+    first_name: str
+    second_name: str
+    phone: str = None
