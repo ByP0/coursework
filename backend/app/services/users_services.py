@@ -5,7 +5,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 from datetime import datetime, timedelta, timezone
 
-from config import secret_key, algorithm
+from backend.app.config import secret_key, algorithm
 
 class JWTBearer(HTTPBearer):
     def __init__(self, auto_error: bool = True):

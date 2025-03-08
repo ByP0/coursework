@@ -1,30 +1,17 @@
 from typing import Annotated
 from fastapi import APIRouter, Query
+from backend.app.services.users_services import dependencies, get_user_id_from_token
 
 
-router = APIRouter(prefix="/add", tags=["Add"])
+router = APIRouter(prefix="/add", tags=["Add"], dependencies=dependencies)
 
 
-@router.get("/all_groups")
-async def get_all_music_groups():
-    pass
-
-@router.get("/all_songs_group")
-async def get_songs(
-):
-    pass
-
-@router.patch("/change_song")
-async def change_router(
-):
-    pass
-
-@router.post("add_group")
+@router.post("/group")
 async def add_group(
 ):
     pass
 
-@router.post("add_song")
+@router.post("/song")
 async def add_song(
 ):
     pass

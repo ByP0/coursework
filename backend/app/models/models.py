@@ -19,13 +19,17 @@ class Users(Base):
 
 class Artists(Base):
     __tablename__ = 'artists'
+    
     artist_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(VARCHAR(255))
     country: Mapped[str] = mapped_column(VARCHAR(100))
     formation_year: Mapped[date] = mapped_column(DATE, nullable=True)
     breakup_year: Mapped[date] = mapped_column(DATE, nullable=True)
+    
+    tracks: Mapped[list['Tracks']] = relationship("Tracks", back_populates="artist")
     awards: Mapped[list['Awards']] = relationship("Awards", back_populates="artist")
     members: Mapped[list['Members']] = relationship("Members", back_populates="artist")
+
 
 class Tracks(Base):
     __tablename__ = 'tracks'
