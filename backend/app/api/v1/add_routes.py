@@ -12,23 +12,29 @@ router = APIRouter(prefix="/add", tags=["Add"], dependencies=dependencies)
 
 
 @router.post("/artist")
-async def add_artist(
+async def add_artist_router(
     data: Annotated[AddArtist, Body()],
     session: AsyncSession = Depends(get_session),
 ):
     await add_artist(session=session, data=data)
     return JSONResponse(
         status_code=200,
-        content="OK"
+        content={
+            'status_code': 200,
+            'data': "OK"
+        }
     )
 
 @router.post("/song")
 async def add_song(
-    data = AddTrack,
+    data: AddTrack,
     session: AsyncSession = Depends(get_session),
 ):
     await add_song(session=session, data=data)
     return JSONResponse(
         status_code=200,
-        content="OK",
+        content={
+            'status_code': 200,
+            'data': "OK"
+        }
     )

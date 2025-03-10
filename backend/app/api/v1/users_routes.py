@@ -40,8 +40,12 @@ async def sing_in(
     
     if not validate_password(data.password, user.password.encode('utf-8')):
         raise HTTPException(status_code=401, detail="Неверный пароль")
-
-    return JSONResponse(status_code=200, content="Успешный вход")
+    
+    token = sign_jwt(data={'user_id': user.user_id})
+    return JSONResponse(status_code=200, content={
+        'status_code': 200,
+        'access_token': token,
+    })
 
 @router.get("/me", dependencies=dependencies)
 async def get_user_me(

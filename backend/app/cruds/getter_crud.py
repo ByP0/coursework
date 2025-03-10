@@ -3,6 +3,12 @@ from sqlalchemy import select, Result
 from backend.app.models.models import Artists, Genres, Tracks
 
 
+async def get_all_group_songs(session: AsyncSession, group_id: int):
+    stmt = select(Tracks).where(Tracks.artist_id == group_id)
+    result = await session.execute(stmt)
+    songs = result.scalars().all()
+    return songs
+
 async def get_all_songs(session: AsyncSession):
     stmt = select(Tracks)
     result = await session.execute(stmt)
