@@ -4,7 +4,7 @@ from backend.app.models.models import Base
 
 
 engine = create_async_engine(
-    url="postgresql+asyncpg://postgres:postgres@localhost:5432/postgres",#str(db_url),
+    url=str(db_url),
     echo=True,
     future=True,
     )
