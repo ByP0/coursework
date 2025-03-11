@@ -1,7 +1,5 @@
 from typing import Annotated, Optional
 from fastapi import APIRouter, Query, Depends
-from fastapi.responses import JSONResponse
-from backend.app.services.users_services import dependencies
 from sqlalchemy.ext.asyncio import AsyncSession
 from backend.app.databases.postgresdb import get_session
 from backend.app.cruds.getter_crud import get_all_group, get_all_songs, get_all_genres, get_group_by_id, get_all_group_songs
@@ -23,13 +21,7 @@ async def get_songs(
 ):
     all_songs = await get_all_songs(session=session)
     return all_songs
-    # return JSONResponse(
-    #     status_code=200,
-    #     content={
-    #         'status_code': 200,
-    #         'data': all_songs
-    #     }
-    # )
+
 
 @router.get("/all_songs_by")
 async def get_songs_group(
