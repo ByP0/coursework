@@ -47,6 +47,7 @@ async def sing_in(
         'access_token': token,
     })
 
+
 @router.get("/me", dependencies=dependencies)
 async def get_user_me(
     request: Request,

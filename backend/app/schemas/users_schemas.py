@@ -1,12 +1,11 @@
 from pydantic import BaseModel, Field, model_validator
-from typing import Annotated, Optional
+from typing import Annotated
 from email_validator import validate_email
 
 from backend.app.services.users_services import validate_phone
 
 
 class SingUpUser(BaseModel):
-
     first_name: Annotated[str, Field(title="Имя", examples=["Александр"])]
     second_name: Annotated[str, Field(title="Фамилия", examples=["Иванов"])]
     password: Annotated[str, Field(title="Пароль", examples=["password"])]
@@ -37,6 +36,7 @@ class SingUpUser(BaseModel):
 
         return values
     
+
 class SingInUser(BaseModel):
     email: Annotated[str, Field(title="Адрес электронной почты", examples=["example@gmail.com"])]
     password: Annotated[str, Field(title="Пароль", examples=["password"])]
@@ -53,6 +53,7 @@ class SingInUser(BaseModel):
                 raise ValueError("Invalid email.")
 
         return values
+    
     
 class UserResponse(BaseModel):
     user_id: int
