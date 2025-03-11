@@ -22,40 +22,29 @@ async def get_songs(
     session: AsyncSession = Depends(get_session),
 ):
     all_songs = await get_all_songs(session=session)
-    return JSONResponse(
-        status_code=200,
-        content={
-            'status_code': 200,
-            'data': all_songs
-        }
-    )
+    return all_songs
+    # return JSONResponse(
+    #     status_code=200,
+    #     content={
+    #         'status_code': 200,
+    #         'data': all_songs
+    #     }
+    # )
 
-@router.get("all_songs")
+@router.get("/all_songs_by")
 async def get_songs_group(
     group: Annotated[Optional[int], Query(title="ID группы")],
     session: AsyncSession = Depends(get_session),
 ):
     all_songs = await get_all_group_songs(session=session, group_id=group)
-    return JSONResponse(
-        status_code=200,
-        content={
-            'status_code': 200,
-            'data': all_songs
-        }
-    )
+    return all_songs
 
 @router.get("/all_genres")
 async def get_genres(
     session: AsyncSession = Depends(get_session),
 ):
     all_genres = await get_all_genres(session=session)
-    return JSONResponse(
-        status_code=200,
-        content={
-            'status_code': 200,
-            'data': all_genres
-        }
-    )
+    return all_genres   
 
 @router.get("/group/{group_id}")
 async def get_info_artist(
@@ -63,10 +52,4 @@ async def get_info_artist(
     session: AsyncSession = Depends(get_session)
 ):
     group = await get_group_by_id(session=session, group_id=group_id)
-    return JSONResponse(
-        status_code=200,
-        content={
-            'status_code': 200,
-            'data': group,
-        }
-    )
+    return group

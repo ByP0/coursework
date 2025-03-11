@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, Result
+from sqlalchemy.orm import selectinload
 from backend.app.models.models import Artists, Genres, Tracks
 
 
@@ -13,7 +14,7 @@ async def get_all_songs(session: AsyncSession):
     stmt = select(Tracks)
     result = await session.execute(stmt)
     songs = result.scalars().all()
-    return songs
+    return list(songs)
 
 async def get_all_group(session: AsyncSession):
     stmt = select(Artists)

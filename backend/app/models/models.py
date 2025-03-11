@@ -1,6 +1,7 @@
-from sqlalchemy import BigInteger, VARCHAR, TIME, ForeignKey
+from sqlalchemy import BigInteger, VARCHAR, TIME, ForeignKey, DATE
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from datetime import date
 
 
 Base = declarative_base()
@@ -32,24 +33,27 @@ class Artists(Base):
 
 class Tracks(Base):
     __tablename__ = 'tracks'
+    
     track_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
-    title: Mapped[str] = mapped_column(VARCHAR(255))
-    artist_id: Mapped[int] = mapped_column(ForeignKey('artists.artist_id'))
-    release_year: Mapped[str] = mapped_column()
-    duration: Mapped[TIME] = mapped_column(TIME)
-    genre_id: Mapped[int] = mapped_column(ForeignKey('genres.genre_id'))
+    title: Mapped[str] = mapped_column(VARCHAR(255), nullable=False)
+    artist_id: Mapped[int] = mapped_column(ForeignKey('artists.artist_id'), nullable=False)
+    release_year: Mapped[date] = mapped_column(DATE, nullable=False)
+    duration: Mapped[TIME] = mapped_column(TIME, nullable=False)
+    genre_id: Mapped[int] = mapped_column(ForeignKey('genres.genre_id'), nullable=False)
     
     artist: Mapped[Artists] = relationship("Artists", back_populates="tracks")
     genre: Mapped['Genres'] = relationship("Genres", back_populates="tracks")
 
 class Genres(Base):
     __tablename__ = 'genres'
+    
     genre_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     genre_name: Mapped[str] = mapped_column(VARCHAR(100))
     tracks: Mapped[list[Tracks]] = relationship("Tracks", back_populates="genre")
 
 class Members(Base):
     __tablename__ = 'members'
+    
     member_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     artist_id: Mapped[int] = mapped_column(ForeignKey('artists.artist_id'))
     full_name: Mapped[str] = mapped_column(VARCHAR(255))
@@ -59,6 +63,7 @@ class Members(Base):
 
 class Awards(Base):
     __tablename__ = 'awards'
+    
     award_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     artist_id: Mapped[int] = mapped_column(ForeignKey('artists.artist_id'))
     award_name: Mapped[str] = mapped_column(VARCHAR(255))
