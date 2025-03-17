@@ -1,8 +1,8 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, Body
 from backend.app.services.users_services import dependencies
-from backend.app.schemas.add_schemas import AddArtist, AddTrack, AddGenre, AddMember, AddAward
-from backend.app.cruds.add_crud import add_artist, add_genre, add_track, add_member, add_award
+from backend.app.schemas.add_schemas import AddArtist, AddTrack, AddMember, AddAward
+from backend.app.cruds.add_crud import add_artist, add_track, add_member, add_award
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from backend.app.databases.postgresdb import get_session
@@ -32,21 +32,6 @@ async def add_song(
     session: AsyncSession = Depends(get_session),
 ):
     await add_track(session=session, data=data)
-    return JSONResponse(
-        status_code=200,
-        content={
-            'status_code': 200,
-            'data': "OK"
-        }
-    )
-
-
-@router.post("/genres")
-async def add_genres(
-    data: AddGenre,
-    session: AsyncSession = Depends(get_session),
-):
-    await add_genre(session=session, data=data)
     return JSONResponse(
         status_code=200,
         content={

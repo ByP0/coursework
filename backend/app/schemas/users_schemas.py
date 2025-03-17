@@ -56,8 +56,8 @@ class SingInUser(BaseModel):
     
     
 class UserResponse(BaseModel):
-    user_id: int
-    email: str
-    first_name: str
-    second_name: str
-    phone: str = None
+    user_id: Annotated[int, Field(title="ID пользоваателя", examples=[1])]
+    email: Annotated[str, Field(title="Электронная почта пользователя", examples=["example@gmail.com"])]
+    first_name: Annotated[str, Field(title="Имя пользователя", examples=["Александр"])]
+    second_name: Annotated[str, Field(title="Фамилия пользователя", examples=["Иванов"])]
+    phone: Annotated[str, Field(title="Номер телефона", examples=["79219873524"], default=None)]
