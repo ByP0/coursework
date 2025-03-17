@@ -3,13 +3,13 @@ from typing import Annotated, Optional
 import re
 from backend.app.validating_data import country_list, music_awards
 
-pattern_time = r'^(?:[0-5]\d):[0-5]\d$'
+pattern_time = r'^(?:[0-9]{1,2}):[0-5][0-9]$'
 
 class AddArtist(BaseModel):
     name: Annotated[str, Field(title="Имя группы или артиста", examples=["Playboi Carti"])]
     country: Annotated[str, Field(title="Страна", examples=["США"])]
     formation_year: Annotated[int, Field(title="Год формирования", ge=1900, lt=2025, examples=[2019])]
-    breakup_year: Annotated[Optional[int], Field(title="Год распада", default=None, ge=1900, lt=2025, examples=[2025])]
+    breakup_year: Annotated[Optional[int], Field(title="Год распада", default=None, ge=1900, lt=2026, examples=[2025])]
 
     @model_validator(mode="before")
     def check_model(cls, values):

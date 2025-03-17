@@ -3,12 +3,13 @@ from fastapi import APIRouter, Query, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from backend.app.databases.postgresdb import get_session
 from backend.app.cruds.getter_crud import get_all_group, get_all_songs, get_all_genres, get_group_by_id, get_all_group_songs, get_all_awards, get_award_by_artist_id
+from backend.app.schemas.getter_schemas import GetArtist
 
 
 router = APIRouter(prefix="/get", tags=["Get"])
 
 
-@router.get("/all_artists")
+@router.get("/all_artists", response_model=list[GetArtist])
 async def get_all_music_artists(
     session: AsyncSession = Depends(get_session),
 ):
