@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field, model_validator
 from typing import Annotated, Optional
 import re
-from backend.app.validating_data import country_list, genres_list
+from backend.app.validating_data import country_list, music_awards
 
 pattern_time = r'^(?:[0-5]\d):[0-5]\d$'
 
@@ -46,3 +46,10 @@ class AddAward(BaseModel):
     artist_id: Annotated[int, Field(title="ID артиста", examples=[1])]
     award_name: Annotated[str, Field(title="Название награды", examples=["Премия 'Гремми'"])]
     year: Annotated[int, Field(title="Год вручения награды", ge=1900, lt=2025, examples=[2025])]
+    
+    @model_validator(mode="before")
+    def check_model(cls, values):
+        award_name = values.get("award_name")
+        if award_name not in music_awards:
+            raise ValueError('Invalid award name')
+        return values

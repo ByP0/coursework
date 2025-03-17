@@ -50,7 +50,7 @@ class Genres(Base):
     __tablename__ = 'genres'
     
     genre_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
-    genre_name: Mapped[str] = mapped_column(VARCHAR(100))
+    genre_name: Mapped[str] = mapped_column(VARCHAR(100), unique=True)
     tracks: Mapped[list[Tracks]] = relationship("Tracks", back_populates="genre")
 
 

@@ -12,9 +12,12 @@ from backend.app.validating_data import genres_list
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await create_tables()
-    async with get_session() as session:
+    async for session in get_session():
         for genre in genres_list:
-            await add_genre_start(session=session, data=genre)
+            try:
+                await add_genre_start(session=session, data=genre)
+            except:
+                pass
     yield
 
 app = FastAPI(lifespan=lifespan)
